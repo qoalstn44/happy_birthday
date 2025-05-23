@@ -184,6 +184,14 @@
         time: firebase.firestore.FieldValue.serverTimestamp()
       });
       e.target.reset();
+      // 이미지 슬라이드
+    let current = 0;
+    const images = document.querySelectorAll('.arch img');
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 1000);
     });
 
     const koreanLetter = `
