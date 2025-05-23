@@ -14,7 +14,41 @@
       overflow-x: hidden;
       font-family: 'Noto Sans', 'Nanum Myeongjo', 'Segoe UI', 'Arial', sans-serif;
     }
-
+    .toggle-btn {
+      display: block;
+      margin: 20px auto 10px;
+      padding: 8px 16px;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 18px;
+      background: #d13b68;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .toggle-btn:hover {
+      background-color: #b9305a;
+    }
+    .back-btn {
+      display: block;
+      margin: 20px auto 10px;
+      padding: 8px 16px;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 18px;
+      background: #555;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .back-btn:hover {
+      background-color: #333;
+    }
+    .back-btn { background:#555; }
+    @media(max-width:768px) { .letter{padding:20px 15px;font-size:16px;line-height:1.6;} h1{font-size:24px;} .footer{font-size:16px;} .toggle-btn, .back-btn{font-size:16px; padding:6px 12px;} }
+    @media(max-width:480px) { .invite{padding:30px 16px;} .arch{height:200px;} }
     .page {
       width: 100%;
       min-height: 100vh;
