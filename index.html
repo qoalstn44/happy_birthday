@@ -81,14 +81,24 @@
 
     // 방명록 작성 핸들러
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('guest-form').addEventListener('submit', async e => {
-        e.preventDefault();
-        const name = document.getElementById('guest-name').value;
-        const msg = document.getElementById('guest-message').value;
-        await addDoc(guestbookCol, { name, msg, time: serverTimestamp() });
-        e.target.reset();
-      });
-    });
+    const form = document.getElementById('guest-form');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const name = form['guest-name'].value;
+      const msg  = form['guest-message'].value;
+
+      try {
+        await addDoc(guestbookCol, {
+          name,
+          msg,
+          time: serverTimestamp()
+        });
+        form.reset();
+        alert('작성이 완료되었습니다.');
+      } catch (err) {
+        console.error(err);
+        alert('오류가 발생했습니다. 다시 시도해주세요.');
+      }
 
     // 방명록 저장
     document.getElementById('guest-form').addEventListener('submit', async e => {
