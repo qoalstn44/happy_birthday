@@ -50,64 +50,58 @@
   <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
-  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
 
-  // Firebase 설정 및 초기화
-  const firebaseConfig = {
-    apiKey: "AIzaSyDu0-PWjGUsBwPQCDJLkdQ9lGRG5WY2UNA",
-    authDomain: "happy-birthday-db227.firebaseapp.com",
-    projectId: "happy-birthday-db227",
-    storageBucket: "happy-birthday-db227.appspot.com",
-    messagingSenderId: "903307449829",
-    appId: "1:903307449829:web:489cd1ffca70ade1194b0c",
-    measurementId: "G-RTMMFLV7KF"
-  };
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+    const firebaseConfig = {
+      apiKey: "AIzaSyDu0-PWjGUsBwPQCDJLkdQ9lGRG5WY2UNA",
+      authDomain: "happy-birthday-db227.firebaseapp.com",
+      projectId: "happy-birthday-db227",
+      storageBucket: "happy-birthday-db227.appspot.com",
+      messagingSenderId: "903307449829",
+      appId: "1:903307449829:web:489cd1ffca70ade1194b0c",
+      measurementId: "G-RTMMFLV7KF"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  // 실시간 방명록 구독 쿼리
-  const guestbookCol = collection(db, 'guestbook');
-  const q = query(guestbookCol, orderBy('time', 'asc'));
-
-  // === 초기 로딩 표시 (2초 딜레이) ===
-  const entriesLoader = document.getElementById('entries-loader'); // 추가: 로딩 엘리먼트
-  const entriesContainer = document.getElementById('entries');
-  onSnapshot(q, snapshot => {
-    setTimeout(() => {
-      entriesLoader.classList.add('hidden'); // 로딩 숨김
-      entriesContainer.innerHTML = ''; // 기존 내용 초기화
+    // 실시간 방명록 구독
+    const guestbookCol = collection(db, 'guestbook');
+    const q = query(guestbookCol, orderBy('time', 'asc'));
+    onSnapshot(q, snapshot => {
+      const container = document.getElementById('entries'); container.innerHTML = '';
       snapshot.forEach(doc => {
         const e = doc.data();
         const div = document.createElement('div'); div.className = 'entry';
         div.innerHTML = `
           <div class="name">${e.name} <small>${new Date(e.time.toMillis()).toLocaleString('ko-KR')}</small></div>
           <div class="msg">${e.msg}</div>`;
-        entriesContainer.appendChild(div);
+        container.appendChild(div);
       });
-    }, 2000); // 2초 로딩 딜레이
-  });
+    });
 
-  // === 전송 로딩 표시 (2초) ===
-  const form = document.getElementById('guest-form');
-  const submitBtn = document.getElementById('submit-btn');
-  const submitLoader = document.getElementById('submit-loader');
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    submitBtn.disabled = true; // 버튼 비활성화
-    submitBtn.classList.add('hidden');  // 버튼 숨김
-    submitLoader.classList.remove('hidden'); // 로더 표시
+    // 방명록 작성 핸들러
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('guest-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = document.getElementById('guest-name').value;
+        const msg = document.getElementById('guest-message').value;
+        await addDoc(guestbookCol, { name, msg, time: serverTimestamp() });
+        e.target.reset();
+      });
+    });
 
-    const name = document.getElementById('guest-name').value;
-    const msg = document.getElementById('guest-message').value;
-    await addDoc(guestbookCol, { name, msg, time: serverTimestamp() });
-
-    setTimeout(() => {
-      submitLoader.classList.add('hidden'); // 로더 숨김
-      submitBtn.classList.remove('hidden');  // 버튼 다시 표시
-      submitBtn.disabled = false;           // 버튼 활성화
-      form.reset();                         // 폼 초기화
-    }, 2000); // 2초 로딩 딜레이
-  });
+    // 방명록 저장
+    document.getElementById('guest-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const name = document.getElementById('guest-name').value;
+      const msg = document.getElementById('guest-message').value;
+      await db.collection('guestbook').add({
+        name,
+        msg,
+        time: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      e.target.reset();
+    });
   </script>
 </head>
 <body>
