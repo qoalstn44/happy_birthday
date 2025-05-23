@@ -3,32 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>아나에게 보내는 편지</title>
+  <title>사랑하는 아나에게</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
   <style>
     body {
-      background: #fdfcf9;
-      color: #333;
+      background: linear-gradient(to bottom right, #fffaf0, #ffe9ec);
+      color: #444;
       font-family: 'Nanum Pen Script', cursive;
       font-size: 22px;
-      line-height: 1.8;
-      padding: 40px;
-      max-width: 700px;
+      line-height: 1.9;
+      padding: 40px 20px;
+      max-width: 720px;
       margin: auto;
+      animation: fadeIn 2s ease-out;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     h1 {
-      font-size: 28px;
+      font-size: 30px;
       text-align: center;
       margin-bottom: 40px;
+      color: #d36187;
+      animation: slideIn 1.2s ease-out;
     }
+
+    p {
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: typeIn 0.8s ease-out forwards;
+    }
+
+    p:nth-of-type(1) { animation-delay: 0.3s; }
+    p:nth-of-type(2) { animation-delay: 0.6s; }
+    p:nth-of-type(3) { animation-delay: 0.9s; }
+    p:nth-of-type(4) { animation-delay: 1.2s; }
+    p:nth-of-type(5) { animation-delay: 1.5s; }
+
+    @keyframes typeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .footer {
-      margin-top: 40px;
+      margin-top: 50px;
       text-align: right;
+      font-size: 22px;
+      color: #a75d67;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+      animation-delay: 2s;
+    }
+
+    /* 하트 이모지 등장 효과 */
+    .heart {
+      display: inline-block;
+      animation: bounce 1s infinite alternate;
+      margin-left: 5px;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-5px); }
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>사랑하는 아나에게</h1>
+  <h1>사랑하는 아나에게<span class="heart">💌</span></h1>
 
   <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
 
@@ -38,7 +82,7 @@
 
   <p>오빠는 경제적으로나 외모로나 부족한 점이 많지만, 아나를 향한 사랑만큼은 누구보다 부자라고 자부해. 그 마음을 알아줬으면 좋겠어.</p>
 
-  <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바라.</p>
+  <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바래.</p>
 
   <div class="footer">
     사랑하는<br />
