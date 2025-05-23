@@ -56,11 +56,21 @@
     .arch {
       width: 100%;
       aspect-ratio: 3 / 4;
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
       border-radius: 200px 200px 0 0 / 40% 40% 0 0;
-      background: url('img/1.jpg') center center / cover no-repeat;
       margin-bottom: 40px;
+    }
+    .arch img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .arch img.active {
+      opacity: 1;
     }
 
     .the-wedding {
@@ -146,7 +156,6 @@
         padding: 30px 16px;
       }
       .arch {
-        aspect-ratio: auto;
         height: 200px;
       }
     }
