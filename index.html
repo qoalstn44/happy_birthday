@@ -142,13 +142,38 @@
       color: #a14a5d;
     }
 
-    /* 본문과 서명 사이의 구분선 */
-    .letter-divider {
-      border: none;
-      border-top: 1px dashed #bbb;
-      margin: 30px auto;
-      width: 80%;
-    }
+    /* 소셜 버튼 */
+    .social-links { margin-top: 20px; display: flex; justify-content: center; gap: 12px; }
+    .social-btn { display: inline-block; padding: 8px 16px; border-radius: 8px; font-size: 14px; color: #fff; text-decoration: none; transition: opacity 0.3s ease; }
+    .tiktok-btn { background: #000; }
+    .tiktok-btn:hover { opacity: 0.8; }
+    .insta-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .insta-btn:hover { opacity: 0.8; }
+
+    @media(max-width:768px) { .letter{padding:20px 15px;font-size:16px;line-height:1.6;} h1{font-size:24px;} .footer{font-size:16px;} .toggle-btn, .back-btn, .social-btn{font-size:16px; padding:6px 12px;} }
+    @media(max-width:480px) { .invite{padding:30px 16px;} .arch{height:200px;} }
+
+    .page { width:100%; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:20px; transition: opacity 0.8s ease; }
+    .hidden { opacity:0; pointer-events:none; position:absolute; top:0; left:0; }
+    .visible { opacity:1; position:relative; }
+
+    .invite { width:100%; max-width:400px; padding:40px 20px; text-align:center; background:#fff; box-shadow:0 8px 30px rgba(0,0,0,0.1); border-radius:16px; }
+    .heading { font-family:'Playfair Display', serif; font-size:14px; letter-spacing:0.15em; color:#333; margin-bottom:4px; }
+    .subheading { font-size:12px; letter-spacing:0.12em; margin-bottom:20px; color:#555; }
+    .arch { width:100%; aspect-ratio:3/4; position:relative; overflow:hidden; border-radius:200px 200px 0 0/40% 40% 0 0; margin-bottom:40px; }
+    .arch img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1s ease; }
+    .arch img.active { opacity:1; }
+
+    .the-wedding { font-family:'Playfair Display', cursive; font-size:14px; margin-bottom:10px; color:#555; }
+    .date { font-size:16px; font-weight:bold; letter-spacing:0.05em; margin-bottom:4px; }
+    .location { font-size:14px; color:#444; line-height:1.4; }
+
+    .letter { background-color:rgba(255,255,255,0.95); width:100%; max-width:720px; padding:30px 20px; border-radius:16px; box-shadow:0 4px 30px rgba(0,0,0,0.2); font-family:'Noto Sans','Nanum Pen Script',cursive; color:#333; line-height:1.7; font-size:18px; word-break:keep-all; }
+    h1 { font-size:28px; text-align:center; color:#d13b68; margin-bottom:24px; }
+    .footer { text-align:right; font-size:18px; margin-top:30px; color:#a14a5d; }
+    .letter-divider { border:none; border-top:1px dashed #bbb; margin:20px auto; width:80%; }
+
+
   </style>
 </head>
 <body>
@@ -165,6 +190,10 @@
       <div class="the-wedding">To. 디아나</div>
       <div class="date">25번째 생일을 진심으로 축하해!</div>
       <div class="location">우즈벡에 계신 가족의 사랑과<br>한국에서 함께하는 우리들의 축하를 담아</div>
+       <div class="social-links">
+        <a href="https://www.tiktok.com/@dia3105?_t=ZS-8wCRpOSD0EM&_r=1&fbclid=PAZXh0bgNhZW0CMTEAAafiFX6GaVj8aJYUJVR-UBicD-IeuQQ4-M0ujWT4tJVp9GO2u4ymS-M3ygOnGg_aem_eNR0oHAiIRzgWaCJjfs6iw" class="social-btn tiktok-btn" target="_blank">TikTok @dia3105</a>
+        <a href="https://www.instagram.com/_d_31s/" class="social-btn insta-btn" target="_blank">Instagram @_d_31s</a>
+      </div>
     </div>
   </div>
 
@@ -180,11 +209,10 @@
         <p>오빠는 경제적으로나 외모로나 부족한 점이 많지만, 아나를 향한 사랑만큼은 누구보다 부자라고 자부해.</p>
         <p>그 마음을 알아줬으면 좋겠어.</p>
         <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바래.</p>
-        <!-- 본문과 서명 사이 구분선 추가 -->
         <hr class="letter-divider" />
         <div class="footer">사랑하는<br />오빠가</div>
       </div>
-      <button class="back-btn" onclick="goToPage(1)">첫페이지로 돌아가기</button>
+      <button class="back-btn" onclick="goToPage(1)">돌아가기</button>
     </div>
   </div>
 
