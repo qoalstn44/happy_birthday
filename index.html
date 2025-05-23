@@ -7,173 +7,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Playfair+Display&family=Noto+Sans&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: #f8f6f3;
-      overflow-x: hidden;
-      font-family: 'Noto Sans', 'Nanum Myeongjo', 'Segoe UI', 'Arial', sans-serif;
-    }
-    .toggle-btn, .back-btn {
-      display: block;
-      margin: 20px auto 10px;
-      padding: 8px 16px;
-      font-family: 'Nanum Pen Script', cursive;
-      font-size: 18px;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .toggle-btn { background: #d13b68; }
-    .toggle-btn:hover { background-color: #b9305a; }
-    .back-btn { background: #555; }
-    .back-btn:hover { background-color: #333; }
+    html, body { width:100%; height:100%; background:#f8f6f3; overflow-x:hidden; font-family:'Noto Sans','Nanum Myeongjo','Segoe UI','Arial',sans-serif; }
 
-    @media(max-width:768px) {
-      .letter{padding:20px 15px;font-size:16px;line-height:1.6;}
-      h1{font-size:24px;}
-      .footer{font-size:16px;}
-      .toggle-btn, .back-btn{font-size:16px; padding:6px 12px;}
-    }
-    @media(max-width:480px) { .invite{padding:30px 16px;} .arch{height:200px;} }
-
-    .page {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      transition: opacity 0.8s ease;
-    }
-
-    .hidden { opacity: 0; pointer-events: none; position: absolute; top: 0; left: 0; }
-    .visible { opacity: 1; position: relative; }
-
-    .invite {
-      width: 100%;
-      max-width: 400px;
-      padding: 40px 20px;
-      text-align: center;
-      background: #fff;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-      border-radius: 16px;
-    }
-
-    .heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 14px;
-      letter-spacing: 0.15em;
-      color: #333;
-      margin-bottom: 4px;
-    }
-
-    .subheading {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      margin-bottom: 20px;
-      color: #555;
-    }
-
-    .arch {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      position: relative;
-      overflow: hidden;
-      border-radius: 200px 200px 0 0 / 40% 40% 0 0;
-      margin-bottom: 40px;
-    }
-    .arch img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    .arch img.active { opacity: 1; }
-
-    .the-wedding {
-      font-family: 'Playfair Display', cursive;
-      font-size: 14px;
-      margin-bottom: 10px;
-      color: #555;
-    }
-
-    .date {
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-    }
-
-    .location {
-      font-size: 14px;
-      color: #444;
-    }
-
-    .letter {
-      background-color: rgba(255, 255, 255, 0.95);
-      width: 100%;
-      max-width: 720px;
-      padding: 30px 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-      font-family: 'Noto Sans', 'Nanum Pen Script', cursive;
-      color: #333;
-      line-height: 1.7;
-      font-size: 18px;
-      word-break: keep-all;
-    }
-
-    h1 {
-      font-size: 28px;
-      text-align: center;
-      color: #d13b68;
-      margin-bottom: 24px;
-    }
-
-    .footer {
-      text-align: right;
-      font-size: 18px;
-      margin-top: 30px;
-      color: #a14a5d;
-    }
-
-    /* 소셜 버튼 */
-    .social-links { margin-top: 20px; display: flex; justify-content: center; gap: 12px; }
-    .social-btn { display: inline-block; padding: 8px 16px; border-radius: 8px; font-size: 14px; color: #fff; text-decoration: none; transition: opacity 0.3s ease; }
-    .tiktok-btn { background: #000; }
-    .tiktok-btn:hover { opacity: 0.8; }
-    .insta-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-    .insta-btn:hover { opacity: 0.8; }
-
-    @media(max-width:768px) { .letter{padding:20px 15px;font-size:16px;line-height:1.6;} h1{font-size:24px;} .footer{font-size:16px;} .toggle-btn, .back-btn, .social-btn{font-size:16px; padding:6px 12px;} }
-    @media(max-width:480px) { .invite{padding:30px 16px;} .arch{height:200px;} }
-
-    .page { width:100%; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:20px; transition: opacity 0.8s ease; }
+    .page { display:flex; justify-content:center; align-items:center; width:100%; min-height:100vh; padding:20px; transition:opacity 0.8s ease; }
     .hidden { opacity:0; pointer-events:none; position:absolute; top:0; left:0; }
     .visible { opacity:1; position:relative; }
 
-    .invite { width:100%; max-width:400px; padding:40px 20px; text-align:center; background:#fff; box-shadow:0 8px 30px rgba(0,0,0,0.1); border-radius:16px; }
-    .heading { font-family:'Playfair Display', serif; font-size:14px; letter-spacing:0.15em; color:#333; margin-bottom:4px; }
+    /* 첫 화면 레이아웃 */
+    .page1-content { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; align-items:flex-start; width:100%; max-width:900px; }
+    .invite, .guestbook { background:#fff; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.1); }
+    .invite { flex:1; max-width:400px; padding:40px 20px; text-align:center; }
+    .heading { font-family:'Playfair Display',serif; font-size:14px; letter-spacing:0.15em; color:#333; margin-bottom:4px; }
     .subheading { font-size:12px; letter-spacing:0.12em; margin-bottom:20px; color:#555; }
     .arch { width:100%; aspect-ratio:3/4; position:relative; overflow:hidden; border-radius:200px 200px 0 0/40% 40% 0 0; margin-bottom:40px; }
     .arch img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1s ease; }
     .arch img.active { opacity:1; }
-
-    .the-wedding { font-family:'Playfair Display', cursive; font-size:14px; margin-bottom:10px; color:#555; }
+    .the-wedding { font-family:'Playfair Display',cursive; font-size:14px; margin-bottom:10px; color:#555; }
     .date { font-size:16px; font-weight:bold; letter-spacing:0.05em; margin-bottom:4px; }
     .location { font-size:14px; color:#444; line-height:1.4; }
 
-    .letter { background-color:rgba(255,255,255,0.95); width:100%; max-width:720px; padding:30px 20px; border-radius:16px; box-shadow:0 4px 30px rgba(0,0,0,0.2); font-family:'Noto Sans','Nanum Pen Script',cursive; color:#333; line-height:1.7; font-size:18px; word-break:keep-all; }
-    h1 { font-size:28px; text-align:center; color:#d13b68; margin-bottom:24px; }
-    .footer { text-align:right; font-size:18px; margin-top:30px; color:#a14a5d; }
-    .letter-divider { border:none; border-top:1px dashed #bbb; margin:20px auto; width:80%; }
+    .social-links { margin-top:20px; display:flex; justify-content:center; gap:12px; }
+    .social-btn { padding:8px 16px; border-radius:8px; font-size:14px; color:#fff; text-decoration:none; transition:opacity 0.3s ease; }
+    .tiktok-btn { background:#000; }
+    .tiktok-btn:hover { opacity:0.8; }
+    .insta-btn { background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+    .insta-btn:hover { opacity:0.8; }
 
+    /* 방명록 영역 */
+    .guestbook { flex:1; max-width:400px; padding:20px; }
+    .guestbook h2 { font-family:'Nanum Pen Script',cursive; font-size:20px; color:#d13b68; text-align:center; margin-bottom:10px; }
+    .guestbook form { display:flex; flex-direction:column; }
+    .guestbook input, .guestbook textarea { margin-bottom:10px; padding:8px; border:1px solid #ccc; border-radius:8px; font-size:14px; }
+    .guestbook textarea { resize:none; height:100px; }
+    .guestbook button { background:#d13b68; color:#fff; border:none; border-radius:8px; padding:10px; font-size:16px; cursor:pointer; }
+    .guestbook button:hover { background:#b9305a; }
 
+    /* 버튼 공통 */
+    .toggle-btn, .back-btn { display:block; margin:20px auto 10px; padding:8px 16px; font-family:'Nanum Pen Script',cursive; font-size:18px; color:#fff; border:none; border-radius:12px; cursor:pointer; transition:background-color 0.3s ease; }
+    .toggle-btn { background:#d13b68; }
+    .toggle-btn:hover { background:#b9305a; }
+    .back-btn { background:#555; }
+    .back-btn:hover { background:#333; }
+
+    /* 반응형 */
+    @media(max-width:768px) { .page1-content { flex-direction:column; } }
   </style>
 </head>
 <body>
@@ -227,6 +104,7 @@
         p1.classList.replace('hidden','visible');
       }
     }
+    // 이미지 슬라이드
     let current = 0;
     const images = document.querySelectorAll('.arch img');
     setInterval(() => {
@@ -234,6 +112,16 @@
       current = (current + 1) % images.length;
       images[current].classList.add('active');
     }, 1000);
+
+    // 방명록 폼 핸들러 (예시, 실제 저장 로직 필요)
+    document.getElementById('guest-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('guest-name').value;
+      const msg = document.getElementById('guest-message').value;
+      alert(`${name}님, 메시지 감사합니다!`);
+      e.target.reset();
+    });
+
 
     const koreanLetter = `
       <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
