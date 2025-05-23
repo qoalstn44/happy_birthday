@@ -131,21 +131,14 @@
       </div>
 
       <!-- 방명록 폼 -->
-      <div id="page1" class="page">
-        <div class="page1-content">
-          <div class="invite" onclick="goToPage(2)"> <!-- 추가: 페이지 전환 핸들러 --> ... </div>
-          <div class="guestbook">
-            <h2>방명록 남기기</h2>
-            <form id="guest-form">
-              <input type="text" id="guest-name" placeholder="이름(имя)" required>
-              <textarea id="guest-message" placeholder="축하 메시지를 남겨주세요(Пожалуйста, оставьте поздравительное сообщение.)" required></textarea>
-              <button id="submit-btn" type="submit">전송</button>
-              <div id="submit-loader" class="loader hidden">전송 중...</div> <!-- 추가: 전송 로딩 표시 -->
-            </form>
-            <div id="entries-loader" class="loader">로딩 중...</div> <!-- 추가: 초기 로딩 표시 -->
-            <div class="guestbook-entries" id="entries"></div>
-          </div>
-        </div>
+      <div class="guestbook">
+        <h2>방명록 남기기</h2>
+        <form id="guest-form">
+          <input type="text" id="guest-name" placeholder="이름(имя)" required>
+          <textarea id="guest-message" placeholder="축하 메시지를 남겨주세요(Пожалуйста, оставьте поздравительное сообщение.)" required></textarea>
+          <button type="submit">전송</button>
+        </form>
+        <div class="guestbook-entries" id="entries"></div>
       </div>
 
       
