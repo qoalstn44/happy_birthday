@@ -42,6 +42,8 @@
     .toggle-btn, .back-btn { display:block; margin:20px auto 10px; padding:8px 16px; font-family:'Nanum Pen Script', cursive; font-size:18px; color:#fff; border:none; border-radius:12px; cursor:pointer; }
     .toggle-btn { background:#d13b68; }
     .back-btn { background:#555; }
+    .hidden {display: none;opacity: 0 !important;pointer-events: none;}
+    .loading {text-align: center;padding: 16px 0;font-size: 14px;color: #777;}
     @media(max-width:768px) { .page1-content { flex-direction:column; } }
   </style>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -64,7 +66,47 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const guestbookCol = collection(db, 'guestbook');
+    const loadingEl = document.getElementById('loading');
+    const entriesEl = document.getElementById('entries');
 
+
+    loadingEl.classList.remove('hidden');
+
+    onSnapshot(q, snapshot => {
+      // 데이터 받아오면 로딩 숨기고 entries 보이기
+      loadingEl.classList.add('hidden');
+      entriesEl.classList.remove('hidden');
+
+      entriesEl.innerHTML = '';
+      snapshot.forEach(doc => {
+        const e = doc.data();
+        const div = document.createElement('div');
+        div.className = 'entry';
+        div.innerHTML = `
+          <div class="name">${e.name} <small>${new Date(e.time.toMillis()).toLocaleString('ko-KR')}</small></div>
+          <div class="msg">${e.msg}</div>`;
+        entriesEl.appendChild(div);
+      });
+    });
+
+    // 방명록 제출 핸들러 (이전 답변 코드 그대로)
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('guest-form');
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = form['guest-name'].value;
+        const msg  = form['guest-message'].value;
+
+        try {
+          await addDoc(guestbookCol, { name, msg, time: serverTimestamp() });
+          form.reset();
+          alert('작성이 완료되었습니다.');
+        } catch (err) {
+          console.error(err);
+          alert('오류가 발생했습니다. 다시 시도해주세요.');
+        }
+      });
+    });
 
     // 실시간 방명록 구독
     const q = query(guestbookCol, orderBy('time', 'asc'));
@@ -152,6 +194,7 @@
           <textarea id="guest-message" placeholder="축하 메시지를 남겨주세요(Пожалуйста, оставьте поздравительное сообщение.)" required></textarea>
           <button type="submit">전송</button>
         </form>
+         <div id="loading" class="loading">로딩 중…</div>
         <div class="guestbook-entries" id="entries"></div>
       </div>
 
