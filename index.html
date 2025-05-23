@@ -157,7 +157,12 @@
     <div class="invite">
       <div class="heading">2025.05.30</div>
       <div class="subheading">HAPPY BIRTHDAY</div>
-      <div class="arch"></div>
+      <div class="arch">
+        <img src="img/1.jpg" class="active" />
+        <img src="img/2.jpg" />
+        <img src="img/3.jpg" />
+        <img src="img/4.jpg" />
+      </div>
       <div class="the-wedding">To. 디아나</div>
       <div class="date">25번째 생일을 진심으로 축하해!</div>
       <div class="location">우즈벡에 계신 가족의 사랑과<br>한국에서 함께하는 우리들의 축하를 담아</div>
@@ -188,6 +193,13 @@
       document.getElementById('page2').classList.remove('hidden');
       document.getElementById('page2').classList.add('visible');
     }
+    let current = 0;
+    const images = document.querySelectorAll('.arch img');
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 1000);
 
     const koreanLetter = `
       <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
