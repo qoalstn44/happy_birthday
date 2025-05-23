@@ -6,193 +6,91 @@
   <title>아나의 생일</title>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Playfair+Display&family=Noto+Sans&display=swap" rel="stylesheet">
   <style>
+    /* 기본 레이아웃 초기화 */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       background: #f8f6f3;
-      overflow-x: hidden;
       font-family: 'Noto Sans', 'Nanum Myeongjo', 'Segoe UI', 'Arial', sans-serif;
+      overflow-x: hidden;
     }
-    .toggle-btn {
-      display: block;
-      margin: 20px auto 10px;
-      padding: 8px 16px;
-      font-family: 'Nanum Pen Script', cursive;
-      font-size: 18px;
-      background: #d13b68;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .toggle-btn:hover {
-      background-color: #b9305a;
-    }
-    .back-btn {
-      display: block;
-      margin: 20px auto 10px;
-      padding: 8px 16px;
-      font-family: 'Nanum Pen Script', cursive;
-      font-size: 18px;
-      background: #555;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .back-btn:hover {
-      background-color: #333;
-    }
-    .back-btn { background:#555; }
-    @media(max-width:768px) { .letter{padding:20px 15px;font-size:16px;line-height:1.6;} h1{font-size:24px;} .footer{font-size:16px;} .toggle-btn, .back-btn{font-size:16px; padding:6px 12px;} }
-    @media(max-width:480px) { .invite{padding:30px 16px;} .arch{height:200px;} }
+    /* 페이지 컨테이너 */
     .page {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 100%; min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
       padding: 20px;
       transition: opacity 0.8s ease;
     }
-
     .hidden { opacity: 0; pointer-events: none; position: absolute; top: 0; left: 0; }
     .visible { opacity: 1; position: relative; }
 
+    /* 초대 카드 스타일 */
     .invite {
-      width: 100%;
-      max-width: 400px;
+      width: 100%; max-width: 400px;
       padding: 40px 20px;
-      text-align: center;
       background: #fff;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
       border-radius: 16px;
-    }
-
-    .heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 14px;
-      letter-spacing: 0.15em;
-      color: #333;
-      margin-bottom: 4px;
-    }
-
-    .subheading {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      margin-bottom: 20px;
-      color: #555;
-    }
-
-    .arch {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      position: relative;
-      overflow: hidden;
-      border-radius: 200px 200px 0 0 / 40% 40% 0 0;
-      margin-bottom: 40px;
-    }
-    .arch img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    .arch img.active {
-      opacity: 1;
-    }
-
-    .the-wedding {
-      font-family: 'Playfair Display', cursive;
-      font-size: 14px;
-      margin-bottom: 10px;
-      color: #555;
-    }
-
-    .date {
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-    }
-
-    .location {
-      font-size: 14px;
-      color: #444;
-    }
-
-    .letter {
-      background-color: rgba(255, 255, 255, 0.95);
-      width: 100%;
-      max-width: 720px;
-      padding: 30px 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-      font-family: 'Noto Sans', 'Nanum Pen Script', cursive;
-      color: #333;
-      line-height: 1.7;
-      font-size: 18px;
-      word-break: keep-all;
-    }
-
-    h1 {
-      font-size: 28px;
+      margin: auto;
       text-align: center;
-      color: #d13b68;
-      margin-bottom: 24px;
     }
+    .heading { font-family: 'Playfair Display', serif; font-size: 14px; letter-spacing: 0.15em; color: #333; margin-bottom: 4px; }
+    .subheading { font-size: 12px; letter-spacing: 0.12em; margin-bottom: 20px; color: #555; }
 
-    .footer {
-      text-align: right;
-      font-size: 18px;
-      margin-top: 30px;
-      color: #a14a5d;
+    /* 아치형 이미지 컨테이너 */
+    .arch { width: 100%; aspect-ratio: 3/4; position: relative; overflow: hidden; border-radius: 200px 200px 0 0 / 40% 40% 0 0; margin-bottom: 40px; }
+    .arch img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; }
+    .arch img.active { opacity: 1; }
+
+    .the-wedding { font-family: 'Playfair Display', cursive; font-size: 14px; margin-bottom: 10px; color: #555; }
+    .date { font-size: 16px; font-weight: bold; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .location { font-size: 14px; color: #444; }
+
+    /* 편지 카드 스타일 */
+    .letter {
+      width: 100%; max-width: 720px;
+      padding: 30px 20px; margin: auto;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 18px; line-height: 1.7;
+      color: #333; word-break: keep-all;
     }
+    h1 { font-size: 28px; text-align: center; color: #d13b68; margin-bottom: 24px; }
+    .footer { text-align: right; font-size: 18px; margin-top: 30px; color: #a14a5d; }
 
-    .toggle-btn {
-      display: block;
-      margin: 20px auto 10px;
-      padding: 8px 16px;
-      font-family: 'Noto Sans', 'Nanum Pen Script', cursive;
-      font-size: 18px;
-      background: #d13b68;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
+    /* 버튼 스타일 */
+    .toggle-btn, .back-btn {
+      display: block; margin: 20px auto 10px;
+      padding: 8px 16px; font-family: 'Nanum Pen Script', cursive;
+      font-size: 18px; border: none; border-radius: 12px; cursor: pointer;
+      transition: background-color 0.3s ease;
     }
+    .toggle-btn { background: #d13b68; color: #fff; }
+    .toggle-btn:hover { background: #b9305a; }
+    .back-btn { background: #555; color: #fff; }
+    .back-btn:hover { background: #333; }
 
+    /* --- 반응형 조정 (수정된 부분) --- */
     @media (max-width: 768px) {
-      .letter {
-        padding: 20px 15px;
-        font-size: 16px;
-        line-height: 1.6;
-      }
-      h1 {
-        font-size: 24px;
-      }
-      .footer {
-        font-size: 16px;
-      }
-      .toggle-btn {
-        font-size: 16px;
-        padding: 6px 12px;
-      }
+      .page { padding: 15px; } /* 페이지 패딩 축소 */
+      .invite { padding: 30px 15px; } /* 카드 패딩 축소 */
+      .letter { padding: 20px 15px; font-size: 16px; line-height: 1.6; } /* 편지 카드 폰트/패딩 조정 */
+      h1 { font-size: 24px; }
+      .footer { font-size: 16px; }
+      .toggle-btn, .back-btn { font-size: 16px; padding: 6px 12px; } /* 버튼 크기 조정 */
     }
-
     @media (max-width: 480px) {
-      .invite {
-        padding: 30px 16px;
-      }
-      .arch {
-        height: 200px;
-      }
+      .page { padding: 10px; } /* 모바일 하단 여백 감소 */
+      .invite { padding: 20px 12px; max-width: 95%; } /* 카드 폭 및 패딩 조정 */
+      .arch { height: 180px; margin-bottom: 20px; } /* 이미지 높이 고정 */
+      .letter { padding: 15px 12px; font-size: 15px; } /* 편지 카드 축소 */
+      h1 { font-size: 22px; margin-bottom: 20px; }
+      .footer { font-size: 15px; margin-top: 20px; }
+      .toggle-btn, .back-btn { padding: 6px 10px; font-size: 15px; margin: 15px auto 8px; } /* 버튼 여백/크기 축소 */
     }
+    /* --- 반응형 조정 끝 --- */
   </style>
 </head>
 <body>
