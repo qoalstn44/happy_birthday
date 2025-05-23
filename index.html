@@ -63,9 +63,10 @@
     };
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const guestbookCol = collection(db, 'guestbook');
+
 
     // 실시간 방명록 구독
-    const guestbookCol = collection(db, 'guestbook');
     const q = query(guestbookCol, orderBy('time', 'asc'));
     onSnapshot(q, snapshot => {
       const container = document.getElementById('entries'); container.innerHTML = '';
@@ -79,7 +80,7 @@
       });
     });
 
-    // 방명록 작성 핸들러
+    // 방명록 작성 핸들러 (수정)
     document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('guest-form');
     form.addEventListener('submit', async e => {
@@ -99,6 +100,9 @@
         console.error(err);
         alert('오류가 발생했습니다. 다시 시도해주세요.');
       }
+    });
+  });
+
 
     // 방명록 저장
     document.getElementById('guest-form').addEventListener('submit', async e => {
