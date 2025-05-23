@@ -133,14 +133,40 @@
       images[current].classList.add('active');
     }, 1000);
     
-    // 방명록 폼 핸들러 (예시, 실제 저장 로직 필요)
+    // 방명록 DB(mocked via localStorage)
+    const STORAGE_KEY = 'guestbookEntries';
+    function loadEntries() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+    function saveEntries(entries) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+    function renderEntries() {
+      const container = document.getElementById('entries');
+      container.innerHTML = '';
+      const entries = loadEntries();
+      entries.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        div.innerHTML = `<div class="name">${e.name} <small>${e.time}</small></div><div class="msg">${e.msg}</div>`;
+        container.appendChild(div);
+      });
+    }
     document.getElementById('guest-form').addEventListener('submit', e => {
       e.preventDefault();
       const name = document.getElementById('guest-name').value;
       const msg = document.getElementById('guest-message').value;
-      alert(`${name}님, 메시지 감사합니다!`);
+      const now = new Date();
+      const time = now.toLocaleString('ko-KR');
+      const entries = loadEntries();
+      entries.push({name, msg, time});
+      saveEntries(entries);
+      renderEntries();
       e.target.reset();
     });
+    // 초기 렌더
+    renderEntries();
 
 
     const koreanLetter = `
