@@ -192,15 +192,21 @@
         <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바래.</p>
         <div class="footer">사랑하는<br />오빠가</div>
       </div>
+    <button class="back-btn" onclick="goToPage(1)">첫페이지로 돌아가기</button>
     </div>
   </div>
 
   <script>
     function goToPage(pageNum) {
-      document.getElementById('page1').classList.remove('visible');
-      document.getElementById('page1').classList.add('hidden');
-      document.getElementById('page2').classList.remove('hidden');
-      document.getElementById('page2').classList.add('visible');
+      const p1 = document.getElementById('page1');
+      const p2 = document.getElementById('page2');
+      if (pageNum === 1) {
+        p1.classList.replace('visible','hidden');
+        p2.classList.replace('hidden','visible');
+      } else {
+        p2.classList.replace('visible','hidden');
+        p1.classList.replace('hidden','visible');
+      }
     }
     let current = 0;
     const images = document.querySelectorAll('.arch img');
