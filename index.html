@@ -61,30 +61,36 @@
   </style>
 </head>
 <body>
-  <div id="page1" class="page visible" onclick="goToPage(2)">
-    <div class="invite">
-      <div class="heading">2025.05.30</div>
-      <div class="subheading">HAPPY BIRTHDAY</div>
-      <div class="arch">
-        <img src="img/1.jpg" class="active" />
-        <img src="img/2.jpg" />
-        <img src="img/3.jpg" />
-        <img src="img/4.jpg" />
+  <!-- 첫 화면: 초대장 + 방명록 -->
+  <div id="page1" class="page visible">
+    <div class="page1-content">
+      <!-- 초대장 카드 -->
+      <div class="invite" onclick="goToPage(2)">
+        <div class="heading">2025.05.30</div>
+        <div class="subheading">HAPPY BIRTHDAY</div>
+        <div class="arch">
+          <img src="img/1.jpg" class="active">
+          <img src="img/2.jpg">
+          <img src="img/3.jpg">
+          <img src="img/4.jpg">
+        </div>
+        <div class="the-wedding">To. 디아나</div>
+        <div class="date">25번째 생일을 진심으로 축하해!</div>
+        <div class="location">우즈벡에 계신 가족의 사랑과<br>한국에서 함께하는 우리들의 축하를 담아</div>
+        <div class="social-links">
+          <a href="https://www.tiktok.com/@dia3105?_t=ZS-8wCRpOSD0EM&_r=1" class="social-btn tiktok-btn" target="_blank">TikTok @dia3105</a>
+          <a href="https://www.instagram.com/_d_31s/" class="social-btn insta-btn" target="_blank">Instagram @_d_31s</a>
+        </div>
       </div>
-      <div class="the-wedding">To. 디아나</div>
-      <div class="date">25번째 생일을 진심으로 축하해!</div>
-      <div class="location">우즈벡에 계신 가족의 사랑과<br>한국에서 함께하는 우리들의 축하를 담아</div>
-       <div class="social-links">
-        <a href="https://www.tiktok.com/@dia3105?_t=ZS-8wCRpOSD0EM&_r=1&fbclid=PAZXh0bgNhZW0CMTEAAafiFX6GaVj8aJYUJVR-UBicD-IeuQQ4-M0ujWT4tJVp9GO2u4ymS-M3ygOnGg_aem_eNR0oHAiIRzgWaCJjfs6iw" class="social-btn tiktok-btn" target="_blank">TikTok @dia3105</a>
-        <a href="https://www.instagram.com/_d_31s/" class="social-btn insta-btn" target="_blank">Instagram @_d_31s</a>
-      </div>
+      <!-- 방명록 폼 -->
       <div class="guestbook">
-      <h2>방명록 남기기</h2>
-      <form id="guest-form">
-        <input type="text" id="guest-name" placeholder="이름" required />
-        <textarea id="guest-message" placeholder="축하 메시지를 남겨주세요" required></textarea>
-        <button type="submit">전송</button>
-
+        <h2>방명록 남기기</h2>
+        <form id="guest-form">
+          <input type="text" id="guest-name" placeholder="이름" required>
+          <textarea id="guest-message" placeholder="축하 메시지를 남겨주세요" required></textarea>
+          <button type="submit">전송</button>
+        </form>
+      </div>
     </div>
   </div>
 
