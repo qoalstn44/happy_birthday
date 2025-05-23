@@ -43,13 +43,23 @@
     .toggle-btn { background:#d13b68; }
     .back-btn { background:#555; }
     @media (max-width: 480px) {
-      /* 카드 전체 너비는 이미 max-width:100%; padding:20px; 로 동일하니,
-         내부 폼 요소만 전체 폭으로 늘립니다. */
-      .guestbook input,
-      .guestbook textarea,
-      .guestbook button {
+      /* 카드 컨테이너 전체 너비 제한 & 가운데 정렬 */
+      .page1-content {
         width: 100%;
-        box-sizing: border-box; /* padding 포함하여 정확히 100% */
+        max-width: 360px;    /* 원하는 카드 폭으로 설정 */
+        margin: 0 auto;
+      }
+
+      /* 초대장 · 방명록 카드 모두 100% 폭 */
+      .invite, .guestbook {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      /* 내부 요소들 박스 사이징 통일 */
+      .invite, .guestbook,
+      .invite *, .guestbook * {
+        box-sizing: border-box;
       }
     }
     /* 반응형: 모바일 */
