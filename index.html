@@ -12,7 +12,7 @@
       height: 100%;
       font-family: 'Nanum Myeongjo', serif;
       background: #f8f6f3;
-      overflow: auto;
+      overflow-x: hidden;
     }
 
     .page {
@@ -122,11 +122,32 @@
       cursor: pointer;
     }
 
+    @media (max-width: 768px) {
+      .letter {
+        padding: 20px 15px;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .footer {
+        font-size: 16px;
+      }
+      .toggle-btn {
+        font-size: 16px;
+        padding: 6px 12px;
+      }
+    }
+
     @media (max-width: 480px) {
-      .letter { font-size: 16px; padding: 20px 16px; }
-      h1 { font-size: 24px; }
-      .footer { font-size: 16px; }
-      .toggle-btn { font-size: 16px; padding: 6px 12px; }
+      .invite {
+        padding: 30px 16px;
+      }
+      .arch {
+        aspect-ratio: auto;
+        height: 200px;
+      }
     }
   </style>
 </head>
