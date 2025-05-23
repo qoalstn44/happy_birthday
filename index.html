@@ -1,27 +1,98 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>사랑하는 아나에게</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아나의 생일</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: url('https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e0?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Nanum Pen Script', cursive;
-      color: #333;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Nanum Myeongjo', serif;
+      background: #f8f6f3;
+      overflow: hidden;
     }
 
-    .overlay {
+    .page {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease;
+    }
+
+    .hidden { opacity: 0; pointer-events: none; }
+    .visible { opacity: 1; }
+
+    .invite {
+      width: 400px;
+      padding: 40px 20px;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+    }
+
+    .heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .subheading {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .arch {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      position: relative;
+      border-radius: 200px 200px 0 0 / 40% 40% 0 0;
+      background: url('https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=1000&q=80') center center / cover no-repeat;
+      margin-bottom: 40px;
+    }
+
+    .the-wedding {
+      font-family: 'Playfair Display', cursive;
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .date {
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .location {
+      font-size: 14px;
+      color: #444;
+    }
+
+    .letter {
       background-color: rgba(255, 255, 255, 0.85);
       max-width: 720px;
-      margin: 60px auto;
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      font-family: 'Nanum Pen Script', cursive;
+      color: #333;
+      line-height: 2;
+      font-size: 22px;
     }
 
     h1 {
@@ -31,12 +102,6 @@
       margin-bottom: 30px;
     }
 
-    p {
-      font-size: 22px;
-      line-height: 2;
-      margin-bottom: 24px;
-    }
-
     .footer {
       text-align: right;
       font-size: 22px;
@@ -44,72 +109,58 @@
       color: #a14a5d;
     }
 
-    .photo {
+    .toggle-btn {
       display: block;
-      margin: 30px auto;
-      max-width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    }
-
-    .heart {
-      display: inline-block;
-      animation: bounce 1s infinite alternate;
-    }
-
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-5px); }
-    }
-
-    button {
-      display: block;
-      margin: 20px auto 40px;
+      margin: 20px auto 10px;
       padding: 10px 20px;
-      font-size: 18px;
       font-family: 'Nanum Pen Script', cursive;
+      font-size: 20px;
+      background: #d13b68;
+      color: white;
       border: none;
       border-radius: 12px;
-      background-color: #d13b68;
-      color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #b9305a;
     }
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <h1>사랑하는 아나에게 <span class="heart">💖</span></h1>
-
-    <img class="photo" src="./img/4060623.jpg" alt="우리의 추억">
-
-    <button id="toggleButton" onclick="toggleTranslation()">우즈벡어로 번역하기</button>
-
-    <div id="letter">
-      <!-- 초기: 한국어 -->
-      <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
-      <p>오빠 생각에는, 스무 살이 되었다고 바로 어른이 되는 건 아닌 것 같아. 성인이 된 이후 다섯 번째 생일을 맞는 지금, 아나도 어릴 적의 기억들이 하나씩 떠오르지 않을까? 힘들었던 일도, 좋았던 순간도. 우즈베키스탄에서 서울까지, 여러 가지 꿈과 목표를 안고 멀리 날아온 아나가 이곳에서 원하는 모든 걸 경험했으면 좋겠어.</p>
-      <p>성공하든, 실패하든 그 모든 것이 소중한 경험이고, 아나 삶의 한 조각이니까. 오빠는 아나에게 늘 행복을 주는 사람으로 평생 곁에 있고 싶어. 요즘은 하루빨리 아나와 결혼해서 함께 행복하게 살고 싶은 마음이 커지고 있어.</p>
-      <p>물론 아나가 정말 사랑하는 어머니, 아버지, 할머니, 그리고 동생이 함께 있는 우즈벡 집에서 이 날을 보낼 수 없다는 게 마음 한켠에 아릴 수 있다는 것도 알아. 하지만 괜찮아. 여기 한국에서도 아나를 진심으로 아끼는 친구들이 있고, 오빠도 곁에 있어. 아나가 외롭지 않도록, 따뜻한 생일이 되도록 우리가 함께 많이 축하해줄게.</p>
-      <p>오빠는 경제적으로나 외모로나 부족한 점이 많지만, 아나를 향한 사랑만큼은 누구보다 부자라고 자부해.</p>
-      <p>그 마음을 알아줬으면 좋겠어.</p>
-      <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바래.</p>
+  <div id="page1" class="page visible" onclick="goToPage(2)">
+    <div class="invite">
+      <div class="heading">2025.05.30</div>
+      <div class="subheading">HAPPY BIRTHDAY</div>
+      <div class="arch"></div>
+      <div class="the-wedding">To. 아나</div>
+      <div class="date">25번째 생일을 진심으로 축하해!</div>
+      <div class="location">우즈벡에 계신 가족의 사랑과<br>한국에서 함께하는 우리들의 축하를 담아</div>
     </div>
+  </div>
 
-    <div class="footer">
-      사랑하는<br />
-      오빠가
+  <div id="page2" class="page hidden">
+    <div class="letter">
+      <h1>사랑하는 아나에게 💖</h1>
+      <button class="toggle-btn" onclick="toggleLang(event)">우즈벡어로 보기</button>
+      <div id="letter-content">
+        <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
+        <p>오빠 생각에는, 스무 살이 되었다고 바로 어른이 되는 건 아닌 것 같아. 성인이 된 이후 다섯 번째 생일을 맞는 지금, 아나도 어릴 적의 기억들이 하나씩 떠오르지 않을까? 힘들었던 일도, 좋았던 순간도. 우즈베키스탄에서 서울까지, 여러 가지 꿈과 목표를 안고 멀리 날아온 아나가 이곳에서 원하는 모든 걸 경험했으면 좋겠어.</p>
+        <p>성공하든, 실패하든 그 모든 것이 소중한 경험이고, 아나 삶의 한 조각이니까. 오빠는 아나에게 늘 행복을 주는 사람으로 평생 곁에 있고 싶어. 요즘은 하루빨리 아나와 결혼해서 함께 행복하게 살고 싶은 마음이 커지고 있어.</p>
+        <p>물론 아나가 정말 사랑하는 어머니, 아버지, 할머니, 그리고 동생이 함께 있는 우즈벡 집에서 이 날을 보낼 수 없다는 게 마음 한켠에 아릴 수 있다는 것도 알아. 하지만 괜찮아. 여기 한국에서도 아나를 진심으로 아끼는 친구들이 있고, 오빠도 곁에 있어. 아나가 외롭지 않도록, 따뜻한 생일이 되도록 우리가 함께 많이 축하해줄게.</p>
+        <p>오빠는 경제적으로나 외모로나 부족한 점이 많지만, 아나를 향한 사랑만큼은 누구보다 부자라고 자부해.</p>
+        <p>그 마음을 알아줬으면 좋겠어.</p>
+        <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바래.</p>
+        <div class="footer">사랑하는<br />오빠가</div>
+      </div>
     </div>
   </div>
 
   <script>
-    let isUzbek = false;
+    function goToPage(pageNum) {
+      document.getElementById('page1').classList.remove('visible');
+      document.getElementById('page1').classList.add('hidden');
+      document.getElementById('page2').classList.remove('hidden');
+      document.getElementById('page2').classList.add('visible');
+    }
 
-    const koreanContent = `
+    const koreanLetter = `
       <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
       <p>오빠 생각에는, 스무 살이 되었다고 바로 어른이 되는 건 아닌 것 같아. 성인이 된 이후 다섯 번째 생일을 맞는 지금, 아나도 어릴 적의 기억들이 하나씩 떠오르지 않을까? 힘들었던 일도, 좋았던 순간도. 우즈베키스탄에서 서울까지, 여러 가지 꿈과 목표를 안고 멀리 날아온 아나가 이곳에서 원하는 모든 걸 경험했으면 좋겠어.</p>
       <p>성공하든, 실패하든 그 모든 것이 소중한 경험이고, 아나 삶의 한 조각이니까. 오빠는 아나에게 늘 행복을 주는 사람으로 평생 곁에 있고 싶어. 요즘은 하루빨리 아나와 결혼해서 함께 행복하게 살고 싶은 마음이 커지고 있어.</p>
@@ -117,31 +168,46 @@
       <p>오빠는 경제적으로나 외모로나 부족한 점이 많지만, 아나를 향한 사랑만큼은 누구보다 부자라고 자부해.</p>
       <p>그 마음을 알아줬으면 좋겠어.</p>
       <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바래.</p>
+      <div class="footer">사랑하는<br />오빠가</div>
     `;
 
-    const uzbekContent = `
+    const uzbekLetter = `
       <p>Bunday xat yozganimga ancha vaqt bo‘lganga o‘xshaydi. Menimcha, akasi unga tez-tez xat yozmagani uchun Ana biroz xafa bo'lgandir. Ammo bu maktubni o‘qib ko‘nglingiz biroz yengillashadi, degan umiddaman.</p>
       <p>Menimcha, siz yigirma yoshga to'lganingiz uchun katta bo'lib qolmaysiz deb o'ylayman. Endi siz besh yoshga to‘lgan kuningizni kattalar qatorida nishonlayotgan bo‘lsangiz, bolalik xotiralaringizdan ba’zilari esga tushmayaptimi? Qiyin kunlar va yaxshi vaqtlar. Umid qilamanki, O‘zbekistondan Seulgacha ko‘p orzu va maqsadlar bilan uchib o‘tgan Ana shu yerda o‘zi xohlagan hamma narsani boshdan kechiradi.</p>
       <p>Muvaffaqiyatli yoki muvaffaqiyatsiz bo'lishingizdan qat'i nazar, ularning barchasi qimmatli tajriba va Ana hayotining bir qismidir. Men Annaga doim baxt baxsh etadigan inson sifatida umrining oxirigacha yonida bo‘lishni xohlayman. Shu kunlarda tezroq Anna bilan turmush qurish, birga baxtli yashash istagi kuchaymoqda.</p>
       <p>Albatta, men ham bilamanki, Anna bu kunni o‘zbek uyida suyukli onasi, otasi, buvisi va kenja ukasi bilan o‘tkaza olmagani biroz og‘riqli bo‘lishi mumkin. Lekin hammasi joyida. Koreyada Ana uchun chinakam g'amxo'rlik qiladigan do'stlar bor va uning akasi uning yonida. Ana yolg'iz qolmasligi va tug'ilgan kunini iliq o'tkazishi uchun uni birga nishonlaymiz.</p>
       <p>Akamga ham moddiy, ham jismonan ko‘p jabhalarda kamchilik bo‘lishi mumkin, lekin uning Anaga bo‘lgan muhabbati boshqalarnikidan ko‘ra boyroq ekanini faxr bilan aytadi. Bu tuyg'uni tushunsangiz edi.</p>
       <p>25 yoshingiz bilan, Anna. Umid qilamanki, siz bugun juda baxtli bo'lasiz.</p>
+      <div class="footer">Sevuvchi<br />Aka</div>
     `;
 
-    function toggleTranslation() {
-      const letter = document.getElementById("letter");
-      const button = document.getElementById("toggleButton");
-
+    let isUzbek = false;
+    function toggleLang(e) {
+      e.stopPropagation();
+      const content = document.getElementById("letter-content");
+      const btn = e.target;
       if (isUzbek) {
-        letter.innerHTML = koreanContent;
-        button.textContent = "우즈벡어로 번역하기";
+        content.innerHTML = koreanLetter;
+        btn.textContent = "우즈벡어로 보기";
         isUzbek = false;
       } else {
-        letter.innerHTML = uzbekContent;
-        button.textContent = "한국어로 번역하기";
+        content.innerHTML = uzbekLetter;
+        btn.textContent = "한국어로 보기";
         isUzbek = true;
       }
     }
   </script>
 </body>
 </html>
+
+<!-- Осылай хат жазғаныма көп уақыт өткен сияқты. Ағасы жиі хат жазмайтындықтан, Ана біраз ренжіген шығар деп ойлаймын. Бірақ бұл хатты оқып отырып, көңіліңіз аздап жеңілдей түседі деп сенемін.
+
+Менің ойымша, сен жиырма жаста ғана ересек адам боласың деп ойламаймын. Енді сіз ересек адам ретінде бес жасқа толған туған күніңізді тойлап жатқанда, балалық шағыңыздың кейбір естеліктері сізге оралып жатқан жоқ па? Қиын кездер де, жақсы кездер де. Өзбекстаннан Сеулге дейін көп арман мен мақсатпен ұшқан Ананың осында қалағанының бәрін сезінуіне тілектеспін.
+
+Сіз сәтті болсаңыз да, сәтсіздікке ұшырасаңыз да, олардың барлығы құнды тәжірибе және Ананың өмірінің бір бөлігі. Мен Аннаға әрқашан бақыт сыйлайтын адам ретінде өмір бойы қасында болғым келеді. Бұл күндері Аннаға тезірек үйленіп, бірге бақытты өмір сүрсем деген ниетім артып келеді.
+
+Әрине, Анна үшін бұл күнді өзбек үйінде сүйікті анасымен, әкесімен, әжесімен және інісінің қасында өткізе алмау аздап ауыр болуы мүмкін екенін білемін. Бірақ бұл жақсы. Кореяда Анаға шын көңіл бөлетін достары бар, ағасы оның жанында. Ана жалғыз қалмасын, туған күні жылы болсын деп бірге тойлаймыз.
+
+Ағама қаржы жағынан да, физикалық жағынан да көп жағынан жетіспейтін шығар, бірақ Анаға деген махаббаты ешкімнен де бай екенін мақтанышпен айтады. Сол сезімді түсінсеңіз екен деймін.
+
+25 жасыңыз құтты болсын, Анна. Бүгінгі күніңіз өте қуанышты болады деп үміттенемін. -->
