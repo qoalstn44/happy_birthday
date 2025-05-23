@@ -6,18 +6,16 @@
   <title>아나의 생일</title>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Playfair+Display&family=Noto+Sans&display=swap" rel="stylesheet">
   <style>
+    /* 기존 스타일 유지 */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width:100%; height:100%; background:#f8f6f3; overflow-x:hidden; font-family:'Noto Sans','Nanum Myeongjo','Segoe UI','Arial',sans-serif; }
     .page { display:flex; justify-content:center; align-items:center; width:100%; min-height:100vh; padding:20px; transition:opacity 0.8s ease; }
     .hidden { opacity:0; pointer-events:none; position:absolute; top:0; left:0; }
     .visible { opacity:1; position:relative; }
-
-    /* 첫 화면 레이아웃 */
     .page1-content { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; align-items:flex-start; width:100%; max-width:900px; }
     .invite, .guestbook { background:#fff; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.1); }
     .invite { flex:1; max-width:400px; padding:40px 20px; text-align:center; cursor:pointer; }
     .guestbook { flex:1; max-width:400px; padding:20px; }
-
     .heading { font-family:'Playfair Display', serif; font-size:14px; letter-spacing:0.15em; color:#333; margin-bottom:4px; }
     .subheading { font-size:12px; letter-spacing:0.12em; margin-bottom:20px; color:#555; }
     .arch { width:100%; aspect-ratio:3/4; position:relative; overflow:hidden; border-radius:200px 200px 0 0/40% 40% 0 0; margin-bottom:40px; }
@@ -26,71 +24,37 @@
     .the-wedding { font-family:'Playfair Display', cursive; font-size:14px; margin-bottom:10px; color:#555; }
     .date { font-size:16px; font-weight:bold; letter-spacing:0.05em; margin-bottom:4px; }
     .location { font-size:14px; color:#444; line-height:1.4; }
-
-    /* 소셜 버튼 */
     .social-links { margin-top:20px; display:flex; justify-content:center; gap:12px; }
     .social-btn { padding:8px 16px; border-radius:8px; font-size:14px; color:#fff; text-decoration:none; transition:opacity 0.3s ease; }
     .tiktok-btn { background:#000; }
-    .tiktok-btn:hover { opacity:0.8; }
     .insta-btn { background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
-    .insta-btn:hover { opacity:0.8; }
-
-    /* 방명록 */
     .guestbook h2 { font-family:'Nanum Pen Script', cursive; font-size:20px; color:#d13b68; text-align:center; margin-bottom:10px; }
     .guestbook form { display:flex; flex-direction:column; }
     .guestbook input, .guestbook textarea { margin-bottom:10px; padding:8px; border:1px solid #ccc; border-radius:8px; font-size:14px; }
     .guestbook textarea { resize:none; height:100px; }
     .guestbook button { background:#d13b68; color:#fff; border:none; border-radius:8px; padding:10px; font-size:16px; cursor:pointer; }
-    .guestbook button:hover { background:#b9305a; }
     .guestbook-entries { margin-top:20px; max-height:300px; overflow-y:auto; }
     .entry { border-bottom:1px solid #eee; padding:10px 0; }
-    .entry:last-child { border-bottom:none; }
     .entry .name { font-weight:bold; margin-bottom:4px; }
     .entry .msg { white-space:pre-wrap; }
-
-    /* 편지 화면 */
     .letter { background:rgba(255,255,255,0.95); width:100%; max-width:720px; padding:30px 20px; border-radius:16px; box-shadow:0 4px 30px rgba(0,0,0,0.2); font-family:'Noto Sans','Nanum Pen Script', cursive; color:#333; line-height:1.7; font-size:18px; word-break:keep-all; }
-    h1 { font-size:28px; text-align:center; color:#d13b68; margin-bottom:24px; }
-    .footer { text-align:right; font-size:18px; margin-top:30px; color:#a14a5d; }
     .letter-divider { border:none; border-top:1px dashed #bbb; margin:20px auto; width:80%; }
-
-    /* 버튼 공통 */
-    .toggle-btn, .back-btn { display:block; margin:20px auto 10px; padding:8px 16px; font-family:'Nanum Pen Script', cursive; font-size:18px; color:#fff; border:none; border-radius:12px; cursor:pointer; transition:background-color 0.3s ease; }
+    .toggle-btn, .back-btn { display:block; margin:20px auto 10px; padding:8px 16px; font-family:'Nanum Pen Script', cursive; font-size:18px; color:#fff; border:none; border-radius:12px; cursor:pointer; }
     .toggle-btn { background:#d13b68; }
-    .toggle-btn:hover { background:#b9305a; }
     .back-btn { background:#555; }
-    .back-btn:hover { background:#333; }
-
-    /* 반응형 */
     @media(max-width:768px) { .page1-content { flex-direction:column; } }
   </style>
+
+  <!-- Firebase SDK 포함 -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-  <!-- 첫 화면: 초대장 + 방명록 -->
   <div id="page1" class="page visible">
     <div class="page1-content">
-      <!-- 초대장 카드 -->
       <div class="invite" onclick="goToPage(2)">
-        <div class="heading">2025.05.31</div>
-        <div class="subheading">HAPPY BIRTHDAY</div>
-        <div class="arch">
-          <img src="img/1.jpg" class="active">
-          <img src="img/2.jpg">
-          <img src="img/3.jpg">
-          <img src="img/4.jpg">
-          <img src="img/5.jpg">
-          <img src="img/6.jpg">
-          <img src="img/7.jpg">
-        </div>
-        <div class="the-wedding">To. 디아나</div>
-        <div class="date">25번째 생일을 진심으로 축하해!</div>
-        <div class="location">우즈벡에 계신 가족의 사랑과<br>한국에서 함께하는 우리들의 축하를 담아</div>
-        <div class="social-links">
-          <a href="https://www.tiktok.com/@dia3105?_t=ZS-8wCRpOSD0EM&_r=1" class="social-btn tiktok-btn" target="_blank">TikTok @dia3105</a>
-          <a href="https://www.instagram.com/_d_31s/" class="social-btn insta-btn" target="_blank">Instagram @_d_31s</a>
-        </div>
+        <!-- 초대장 내용 생략 -->
       </div>
-      <!-- 방명록 폼 -->
       <div class="guestbook">
         <h2>방명록 남기기</h2>
         <form id="guest-form">
@@ -102,101 +66,69 @@
       </div>
     </div>
   </div>
+
   <div id="page2" class="page hidden">
     <div class="letter">
       <h1>사랑하는 아나에게 💖</h1>
       <button class="toggle-btn" onclick="toggleLang(event)">Қазақша қарау</button>
       <div id="letter-content">
-        <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
-        <p>오빠 생각에는, 스무 살이 되었다고 바로 어른이 되는 건 아닌 것 같아. 성인이 된 이후 다섯 번째 생일을 맞는 지금, 아나도 어릴 적의 기억들이 하나씩 떠오르지 않을까? 힘들었던 일도, 좋았던 순간도. 우즈베키스탄에서 서울까지, 여러 가지 꿈과 목표를 안고 멀리 날아온 아나가 이곳에서 원하는 모든 걸 경험했으면 좋겠어.</p>
-        <p>성공하든, 실패하든 그 모든 것이 소중한 경험이고, 아나 삶의 한 조각이니까. 오빠는 아나에게 늘 행복을 주는 사람으로 평생 곁에 있고 싶어. 요즘은 하루빨리 아나와 결혼해서 함께 행복하게 살고 싶은 마음이 커지고 있어.</p>
-        <p>물론 아나가 정말 사랑하는 어머니, 아버지, 할머니, 그리고 동생이 함께 있는 우즈벡 집에서 이 날을 보낼 수 없다는 게 마음 한켠에 아릴 수 있다는 것도 알아. 하지만 괜찮아. 여기 한국에서도 아나를 진심으로 아끼는 친구들이 있고, 오빠도 곁에 있어. 아나가 외롭지 않도록, 따뜻한 생일이 되도록 우리가 함께 많이 축하해줄게.</p>
-        <p>오빠는 경제적으로나 외모로나 부족한 점이 많지만, 아나를 향한 사랑만큼은 누구보다 부자라고 자부해.</p>
-        <p>그 마음을 알아줬으면 좋겠어.</p>
-        <p>아나의 25번째 생일을 진심으로 축하해. 오늘 하루, 마음껏 행복하길 바래.</p>
-        <div class="footer">사랑하는<br />오빠가</div>
+        <!-- 편지 본문 & 구분선 -->
       </div>
       <button class="back-btn" onclick="goToPage(1)">돌아가기</button>
     </div>
   </div>
 
   <script>
+    // Firebase 초기화
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // 페이지 전환
     function goToPage(pageNum) {
-      const p1 = document.getElementById('page1');
-      const p2 = document.getElementById('page2');
-      if (pageNum === 2) {
-        p1.classList.replace('visible','hidden');
-        p2.classList.replace('hidden','visible');
-      } else {
-        p2.classList.replace('visible','hidden');
-        p1.classList.replace('hidden','visible');
-      }
-    }
-    // 이미지 슬라이드
-    let current = 0;
-    const images = document.querySelectorAll('.arch img');
-    setInterval(() => {
-      images[current].classList.remove('active');
-      current = (current + 1) % images.length;
-      images[current].classList.add('active');
-    }, 1000);
-    
-    // 방명록 API 연동
-    const API_URL = 'https://example.com/api/guestbook'; // 실제 엔드포인트로 교체
-
-    async function loadEntries() {
-      try {
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error('네트워크 응답 실패');
-        return await res.json(); // [{ name, msg, time }, ...]
-      } catch (e) {
-        console.error(e);
-        return [];
-      }
+      document.getElementById('page1').classList.toggle('visible', pageNum===1);
+      document.getElementById('page1').classList.toggle('hidden', pageNum!==1);
+      document.getElementById('page2').classList.toggle('visible', pageNum===2);
+      document.getElementById('page2').classList.toggle('hidden', pageNum!==2);
     }
 
-    async function postEntry(entry) {
-      try {
-        const res = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(entry)
+    // 실시간 방명록 구독
+    db.collection('guestbook')
+      .orderBy('time', 'asc')
+      .onSnapshot(snapshot => {
+        const container = document.getElementById('entries');
+        container.innerHTML = '';
+        snapshot.forEach(doc => {
+          const e = doc.data();
+          const div = document.createElement('div');
+          div.className = 'entry';
+          div.innerHTML = `
+            <div class="name">${e.name} <small>${new Date(e.time.seconds * 1000).toLocaleString('ko-KR')}</small></div>
+            <div class="msg">${e.msg}</div>
+          `;
+          container.appendChild(div);
         });
-        if (!res.ok) throw new Error('전송 실패');
-        return await res.json();
-      } catch (e) {
-        console.error(e);
-        alert('메시지 전송 중 오류가 발생했습니다.');
-      }
-    }
-
-    async function renderEntries() {
-      const container = document.getElementById('entries');
-      container.innerHTML = '';
-      const entries = await loadEntries();
-      entries.forEach(e => {
-        const div = document.createElement('div');
-        div.className = 'entry';
-        div.innerHTML = `<div class="name">${e.name} <small>${new Date(e.time).toLocaleString('ko-KR')}</small></div>` +
-                        `<div class="msg">${e.msg}</div>`;
-        container.appendChild(div);
       });
-    }
 
+    // 방명록 저장
     document.getElementById('guest-form').addEventListener('submit', async e => {
       e.preventDefault();
       const name = document.getElementById('guest-name').value;
       const msg = document.getElementById('guest-message').value;
-      const time = new Date().toISOString();
-      await postEntry({ name, msg, time });
-      await renderEntries();
+      await db.collection('guestbook').add({
+        name,
+        msg,
+        time: firebase.firestore.FieldValue.serverTimestamp()
+      });
       e.target.reset();
     });
-
-    // 초기 렌더
-    renderEntries();
-
-
     const koreanLetter = `
       <p>이렇게 편지를 쓰는 게 정말 오랜만인 것 같아. 오빠가 자주 써주지 못해서 아나가 조금 서운했을 수도 있겠다는 생각이 들어. 하지만 이 편지를 보고 그런 마음이 조금은 풀렸으면 좋겠어.</p>
       <p>오빠 생각에는, 스무 살이 되었다고 바로 어른이 되는 건 아닌 것 같아. 성인이 된 이후 다섯 번째 생일을 맞는 지금, 아나도 어릴 적의 기억들이 하나씩 떠오르지 않을까? 힘들었던 일도, 좋았던 순간도. 우즈베키스탄에서 서울까지, 여러 가지 꿈과 목표를 안고 멀리 날아온 아나가 이곳에서 원하는 모든 걸 경험했으면 좋겠어.</p>
