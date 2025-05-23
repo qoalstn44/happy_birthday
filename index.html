@@ -69,10 +69,12 @@
     // 실시간 방명록 구독
     const q = query(guestbookCol, orderBy('time', 'asc'));
     onSnapshot(q, snapshot => {
-      const container = document.getElementById('entries'); container.innerHTML = '';
+      const container = document.getElementById('entries');
+      container.innerHTML = '';
       snapshot.forEach(doc => {
         const e = doc.data();
-        const div = document.createElement('div'); div.className = 'entry';
+        const div = document.createElement('div');
+        div.className = 'entry';
         div.innerHTML = `
           <div class="name">${e.name} <small>${new Date(e.time.toMillis()).toLocaleString('ko-KR')}</small></div>
           <div class="msg">${e.msg}</div>`;
@@ -80,29 +82,44 @@
       });
     });
 
-    // 방명록 작성 핸들러 (수정)
+    // 방명록 작성 핸들러 (중복 제출 방지 추가)
     document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('guest-form');
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const name = form['guest-name'].value;
-      const msg  = form['guest-message'].value;
+      const form = document.getElementById('guest-form');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      let isSubmitting = false;
 
-      try {
-        await addDoc(guestbookCol, {
-          name,
-          msg,
-          time: serverTimestamp()
-        });
-        form.reset();
-        alert('작성이 완료되었습니다.');
-      } catch (err) {
-        console.error(err);
-        alert('오류가 발생했습니다. 다시 시도해주세요.');
-      }
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        if (isSubmitting) return;           // 이미 제출 중이면 무시
+        isSubmitting = true;
+        submitBtn.disabled = true;          // 버튼 비활성화
+
+        const name = form['guest-name'].value.trim();
+        const msg  = form['guest-message'].value.trim();
+        if (!name || !msg) {
+          alert('이름과 메시지를 모두 입력해 주세요.');
+          isSubmitting = false;
+          submitBtn.disabled = false;
+          return;
+        }
+
+        try {
+          await addDoc(guestbookCol, {
+            name,
+            msg,
+            time: serverTimestamp()
+          });
+          form.reset();
+          alert('작성이 완료되었습니다.');
+        } catch (err) {
+          console.error(err);
+          alert('오류가 발생했습니다. 다시 시도해주세요.');
+        } finally {
+          isSubmitting = false;
+          submitBtn.disabled = false;       // 완료 후 버튼 재활성화
+        }
+      });
     });
-  });
-
 
     // 방명록 저장
     document.getElementById('guest-form').addEventListener('submit', async e => {
