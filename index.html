@@ -69,11 +69,6 @@
     const loadingEl = document.getElementById('loading');
     const entriesEl = document.getElementById('entries');
 
-
-    loadingEl.classList.remove('hidden');
-    entriesEl.classList.add('hidden');
-
-
     onSnapshot(q, snapshot => {
       // 데이터 받아오면 로딩 숨기고 entries 보이기
       loadingEl.classList.add('hidden');
