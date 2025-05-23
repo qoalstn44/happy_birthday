@@ -171,16 +171,15 @@
       <div class="footer">사랑하는<br />오빠가</div>
     `;
 
-    const uzbekLetter = `
-      <p>Bunday xat yozganimga ancha vaqt bo‘lganga o‘xshaydi. Menimcha, akasi unga tez-tez xat yozmagani uchun Ana biroz xafa bo'lgandir. Ammo bu maktubni o‘qib ko‘nglingiz biroz yengillashadi, degan umiddaman.</p>
-      <p>Menimcha, siz yigirma yoshga to'lganingiz uchun katta bo'lib qolmaysiz deb o'ylayman. Endi siz besh yoshga to‘lgan kuningizni kattalar qatorida nishonlayotgan bo‘lsangiz, bolalik xotiralaringizdan ba’zilari esga tushmayaptimi? Qiyin kunlar va yaxshi vaqtlar. Umid qilamanki, O‘zbekistondan Seulgacha ko‘p orzu va maqsadlar bilan uchib o‘tgan Ana shu yerda o‘zi xohlagan hamma narsani boshdan kechiradi.</p>
-      <p>Muvaffaqiyatli yoki muvaffaqiyatsiz bo'lishingizdan qat'i nazar, ularning barchasi qimmatli tajriba va Ana hayotining bir qismidir. Men Annaga doim baxt baxsh etadigan inson sifatida umrining oxirigacha yonida bo‘lishni xohlayman. Shu kunlarda tezroq Anna bilan turmush qurish, birga baxtli yashash istagi kuchaymoqda.</p>
-      <p>Albatta, men ham bilamanki, Anna bu kunni o‘zbek uyida suyukli onasi, otasi, buvisi va kenja ukasi bilan o‘tkaza olmagani biroz og‘riqli bo‘lishi mumkin. Lekin hammasi joyida. Koreyada Ana uchun chinakam g'amxo'rlik qiladigan do'stlar bor va uning akasi uning yonida. Ana yolg'iz qolmasligi va tug'ilgan kunini iliq o'tkazishi uchun uni birga nishonlaymiz.</p>
-      <p>Akamga ham moddiy, ham jismonan ko‘p jabhalarda kamchilik bo‘lishi mumkin, lekin uning Anaga bo‘lgan muhabbati boshqalarnikidan ko‘ra boyroq ekanini faxr bilan aytadi. Bu tuyg'uni tushunsangiz edi.</p>
-      <p>25 yoshingiz bilan, Anna. Umid qilamanki, siz bugun juda baxtli bo'lasiz.</p>
-      <div class="footer">Sevuvchi<br />Aka</div>
+    const Қазақша = `
+      <p>Осылай хат жазғаныма көп уақыт өткен сияқты. Ағасы жиі хат жазмайтындықтан, Ана біраз ренжіген шығар деп ойлаймын. Бірақ бұл хатты оқып отырып, көңіліңіз аздап жеңілдей түседі деп сенемін.</p>
+      <p>Менің ойымша, сен жиырма жаста ғана ересек адам боласың деп ойламаймын. Енді сіз ересек адам ретінде бес жасқа толған туған күніңізді тойлап жатқанда, балалық шағыңыздың кейбір естеліктері сізге оралып жатқан жоқ па? Қиын кездер де, жақсы кездер де. Өзбекстаннан Сеулге дейін көп арман мен мақсатпен ұшқан Ананың осында қалағанының бәрін сезінуіне тілектеспін.</p>
+      <p>Сіз сәтті болсаңыз да, сәтсіздікке ұшырасаңыз да, олардың барлығы құнды тәжірибе және Ананың өмірінің бір бөлігі. Мен Аннаға әрқашан бақыт сыйлайтын адам ретінде өмір бойы қасында болғым келеді. Бұл күндері Аннаға тезірек үйленіп, бірге бақытты өмір сүрсем деген ниетім артып келеді.</p>
+      <p>Әрине, Анна үшін бұл күнді өзбек үйінде сүйікті анасымен, әкесімен, әжесімен және інісінің қасында өткізе алмау аздап ауыр болуы мүмкін екенін білемін. Бірақ бұл жақсы. Кореяда Анаға шын көңіл бөлетін достары бар, ағасы оның жанында. Ана жалғыз қалмасын, туған күні жылы болсын деп бірге тойлаймыз.</p>
+      <p>Ағама қаржы жағынан да, физикалық жағынан да көп жағынан жетіспейтін шығар, бірақ Анаға деген махаббаты ешкімнен де бай екенін мақтанышпен айтады. Сол сезімді түсінсеңіз екен деймін.</p>
+      <p>25 жасыңыз құтты болсын, Анна. Бүгінгі күніңіз өте қуанышты болады деп үміттенемін.</p>
+      <div class="footer">Сүйіспеншілікпен,<br />Ағаң</div>
     `;
-
     let isUzbek = false;
     function toggleLang(e) {
       e.stopPropagation();
@@ -188,10 +187,10 @@
       const btn = e.target;
       if (isUzbek) {
         content.innerHTML = koreanLetter;
-        btn.textContent = "우즈벡어로 보기";
+        btn.textContent = "Қазақша қарау";
         isUzbek = false;
       } else {
-        content.innerHTML = uzbekLetter;
+        content.innerHTML = Қазақша;
         btn.textContent = "한국어로 보기";
         isUzbek = true;
       }
